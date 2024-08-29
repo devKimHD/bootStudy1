@@ -1,20 +1,26 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
 import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
+//@RequiredArgsConstructor
+//final 붙은 파라미터로 생성자 생성
 public class OrderServiceImpl implements OrderService
 {
 //    private final MemberRepository memberRepository = new MemoryMemberRepository();
     private final MemberRepository memberRepository ;
     private final DiscountPolicy discountPolicy;
+
 //    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
 //    private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
 
@@ -33,7 +39,7 @@ public class OrderServiceImpl implements OrderService
 //생성자 하나면 생략 가능
     @Autowired
 
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy)
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy)
     {
         System.out.println("OrderServiceImpl"+memberRepository);
 //        System.out.println("discountPolicy"+discountPolicy);
